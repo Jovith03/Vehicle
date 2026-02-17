@@ -12,7 +12,7 @@ from pydantic import BaseModel
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-# -------------------- DATABASE CONFIG --------------------
+# -------------------- DATABASE CONFIG -----------------
 DATABASE_URL = "mysql+pymysql://root:@127.0.0.1/vehicle_project"
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
@@ -275,3 +275,4 @@ def create_trip(data: TripCreate, db: Session = Depends(get_db)):
 @app.get("/trips", dependencies=[Depends(require_role(["admin", "manager", "viewer"]))])
 def get_trips(db: Session = Depends(get_db)):
     return db.query(Trip).all()
+
